@@ -15,9 +15,32 @@ export type TPost = {
 	status: string
 	isReported: boolean
 	reportCount: number
-	category: any
-	user: any
+	category: TCategory
+	user: TUser
 	questions: string[]
+	createdAt: string
+	updatedAt: string
+	__v: number
+}
+
+export type TCategory = {
+	_id: string
+	name: string
+	postCount: number
+	isDeleted: boolean
+	createdAt: string
+	updatedAt: string
+	__v: number
+}
+
+export type TUser = {
+	_id: string
+	name: string
+	role: string
+	email: string
+	status: string
+	mobileNumber: string
+	profilePhoto: string
 	createdAt: string
 	updatedAt: string
 	__v: number

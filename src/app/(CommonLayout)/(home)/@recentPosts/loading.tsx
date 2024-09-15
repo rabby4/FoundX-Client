@@ -1,13 +1,9 @@
-import React from "react"
-import Container from "../../ui/Container"
+import CardSkeleton from "@/src/components/ui/CardSkeleton"
+import Container from "@/src/components/ui/Container"
 import { Button } from "@nextui-org/button"
 import Link from "next/link"
-import { getRecentPosts } from "@/src/services/recentPosts"
-import { TPost } from "@/src/types"
 
-const RecentPosts = async () => {
-	const { data: posts } = await getRecentPosts()
-
+const Loading = async () => {
 	return (
 		<Container>
 			<div className="section-title my-8">
@@ -16,9 +12,9 @@ const RecentPosts = async () => {
 					A list of items that have been recently found and reported
 				</p>
 			</div>
-			<div className="my-8 grid justify-center gap-10 sm:grid-cols-1 md:grid-cols-4">
-				{posts.map((post: TPost) => (
-					<p>{post.title}</p>
+			<div className="my-8 grid justify-center gap-10 sm:grid-cols-1 md:grid-cols-3">
+				{[...Array(9)].map(() => (
+					<CardSkeleton />
 				))}
 			</div>
 			<div className="flex justify-center">
@@ -30,4 +26,4 @@ const RecentPosts = async () => {
 	)
 }
 
-export default RecentPosts
+export default Loading
