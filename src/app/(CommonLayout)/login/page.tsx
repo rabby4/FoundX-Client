@@ -8,19 +8,21 @@ import { FieldValues, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import loginSchema from "@/src/schemas/login.schema"
 import { useLogin } from "@/src/hooks/auth.hook"
-import { Spinner } from "@nextui-org/spinner"
 import Loading from "@/src/components/ui/Loading"
 import { useRouter, useSearchParams } from "next/navigation"
+import { useUser } from "@/src/context/user.provider"
 
 const LoginPage = () => {
 	const searchParams = useSearchParams()
 	const redirect = searchParams.get("redirect")
 	const router = useRouter()
+	const { setIsLoading: userLoading } = useUser()
 
 	const { mutate: handleUserLogin, isPending, isSuccess } = useLogin()
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		handleUserLogin(data)
+		userLoading(true)
 	}
 
 	if (!isPending && isSuccess) {

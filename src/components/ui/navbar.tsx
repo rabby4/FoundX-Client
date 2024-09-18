@@ -1,34 +1,29 @@
-import {
-	Navbar as NextUINavbar,
-	NavbarContent,
-	NavbarMenu,
-	NavbarMenuToggle,
-	NavbarBrand,
-	NavbarItem,
-	NavbarMenuItem,
-} from "@nextui-org/navbar"
+"use client"
 import { Button } from "@nextui-org/button"
+import { Input } from "@nextui-org/input"
 import { Kbd } from "@nextui-org/kbd"
 import { Link } from "@nextui-org/link"
-import { Input } from "@nextui-org/input"
-import { link as linkStyles } from "@nextui-org/theme"
-import NextLink from "next/link"
-import clsx from "clsx"
-
-import { siteConfig } from "@/src/config/site"
-import { ThemeSwitch } from "@/src/components/ui/theme-switch"
 import {
-	TwitterIcon,
-	GithubIcon,
-	DiscordIcon,
-	HeartFilledIcon,
-	SearchIcon,
-	Logo,
-} from "@/src/components/icons"
-import { Avatar } from "@nextui-org/avatar"
+	NavbarBrand,
+	NavbarContent,
+	NavbarItem,
+	NavbarMenu,
+	NavbarMenuItem,
+	NavbarMenuToggle,
+	Navbar as NextUINavbar,
+} from "@nextui-org/navbar"
+import { link as linkStyles } from "@nextui-org/theme"
+import clsx from "clsx"
+import NextLink from "next/link"
+
+import { Logo, SearchIcon } from "@/src/components/icons"
+import { ThemeSwitch } from "@/src/components/ui/theme-switch"
+import { siteConfig } from "@/src/config/site"
+import { useUser } from "@/src/context/user.provider"
 import NavbarDropdown from "./NavbarDropdown"
 
 export const Navbar = () => {
+	const { user } = useUser()
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -85,7 +80,13 @@ export const Navbar = () => {
 					<ThemeSwitch />
 				</NavbarItem>
 				<NavbarItem className="hidden sm:flex gap-2">
-					<NavbarDropdown />
+					{user?.email ? (
+						<NavbarDropdown />
+					) : (
+						<Button href={"/login"} as={Link} variant="bordered">
+							Login
+						</Button>
+					)}
 				</NavbarItem>
 			</NavbarContent>
 
