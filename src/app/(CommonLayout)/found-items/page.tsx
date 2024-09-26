@@ -1,10 +1,19 @@
-import React from "react"
+import Container from "@/src/components/ui/Container"
+import Post from "@/src/components/ui/Post"
+import axiosInstance from "@/src/lib/AxiosInstance"
+import { TPost } from "@/src/types"
 
-const FoundItemsPage = () => {
+const FoundItemsPage = async () => {
+	const { data } = await axiosInstance.get("/items")
+
 	return (
-		<div>
-			<h1>this is found items page</h1>
-		</div>
+		<Container>
+			<div className="mx-auto my-3 max-w-[720px]">
+				{data.data.map((post: TPost) => (
+					<Post key={post._id} post={post} />
+				))}
+			</div>
+		</Container>
 	)
 }
 

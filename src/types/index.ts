@@ -53,4 +53,5 @@ export type TInput = {
 	type?: string
 	label: string
 	name: string
+	disabled?: boolean
 }
